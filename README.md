@@ -1,6 +1,6 @@
 # cs50
 
-Corso di Harverd sul game development
+Corso di Harvard sul game development
 
 Dopo aver compreso il funzionamento del codice sorgente, aggiornare i giochi:
 
