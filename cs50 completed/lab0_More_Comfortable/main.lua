@@ -52,6 +52,7 @@ VIRTUAL_HEIGHT = 243
 PADDLE_SPEED1 = 356
 PADDLE_SPEED2 = 200
 
+local n
 --[[
     Called just once at the beginning of the game; used to set up
     game objects, variables, etc. and prepare the game world.
@@ -145,17 +146,17 @@ function love.update(dt)
         -- on player who last scored
         if servingPlayer == 1 then
 			ball.dx = math.random(-50, 50)
-			n = math.random(1, 2)
+			n = math.random(0, 1)
             ball.dy = math.random(140, 200)
-			if n == 2 then
-				ball.dy = ball.dy * -1
+			if n == 1 then
+				ball.dy = ball.dy * (-1)
 			end
         else
             ball.dy = math.random(-50, 50)
-			n = math.random(1, 2)
+			n = math.random(0, 1)
             ball.dx = math.random(140, 200)
-			if n == 2 then
-				ball.dx = ball.dx * -1
+			if n == 1 then
+				ball.dx = ball.dx * (-1)
 			end
         end
     elseif gameState == 'play' then
