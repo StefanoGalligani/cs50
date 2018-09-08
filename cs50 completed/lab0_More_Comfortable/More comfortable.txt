@@ -1,0 +1,4 @@
+Include horizontal and vertical paddles on all four sides of the screen,
+with each player controlling two paddles at the same time on separate axes 
+(i.e., one player controls both the left and right paddles and the other 
+controls the top and bottom ones).
