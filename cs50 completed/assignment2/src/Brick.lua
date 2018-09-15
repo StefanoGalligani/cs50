@@ -80,7 +80,17 @@ function Brick:init(x, y)
     -- spread of particles; normal looks more natural than uniform
     self.psystem:setAreaSpread('normal', 10, 10)
 
-    self.lock = (gLockPosX == self.x and gLockPosY == self.y and gLock == true and self.inPlay) and true or false
+    self.lock = false
+
+    if gCheckLock == true then
+        if (gLockPosX == self.x and gLockPosY == self.y and self.inPlay) then
+            self.lock = true
+            gLock = true
+            gCheckLock = false
+        else
+            gLock = false
+        end
+    end
 end
 
 --[[

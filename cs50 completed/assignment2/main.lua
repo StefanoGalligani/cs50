@@ -27,6 +27,7 @@
 require 'src/Dependencies'
 
 gLock = false
+gCheckLog = false
 gLockX = 0
 gLockY = 0
 gLockPosX = 0

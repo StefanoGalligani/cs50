@@ -30,6 +30,7 @@ function PlayState:enter(params)
     self.highScores = params.highScores
     self.level = params.level
     gKeytaken = false
+    self.multiball = false
     self.recoverPoints = params.recoverPoints
     self.power = Powerup(0, 0)
     self.pSkin = 0
@@ -58,8 +59,12 @@ function PlayState:update(dt)
     self.paddle:update(dt)
     self.power:update(dt)
 
+    if self.power.inPlay == false then
+        self.multiball = false
+    end
+
     if self.power:collides(self.paddle) then
-        if self.pSkin == 9 and self.var == 0 then
+        if self.pSkin == 9 and self.multiball then
             self.var = 1
             local b = Ball(math.random(1,7))
             local b2 = Ball(math.random(1,7))
@@ -75,8 +80,8 @@ function PlayState:update(dt)
             b2.dx = math.random(-200, 200)
             b2.dy = math.random(-50, -60)
             table.insert (self.ball, b2)
-        elseif self.pSkin == 10 and self.var == 0 then
-            self.var = 1
+            self.multiball = false
+        elseif self.pSkin == 10 then
             gKeytaken = true
         end
         self.power.inPlay = false
@@ -120,12 +125,14 @@ function PlayState:update(dt)
                         self.var = math.random(5)
                         if self.var == 1 then
                             self.pSkin = 9
+                            self.multiball = true
                             self.power:spawn(ball.x, ball.y, self.pSkin)
                         elseif self.var == 2 or self.var == 3 then
                             if gKeytaken == false and gLock == true then
                                 self.pSkin = 10
                             else
                                 self.pSkin = 9
+                                self.multiball = true
                             end
                             self.power:spawn(ball.x, ball.y, self.pSkin)
                         end
@@ -134,10 +141,14 @@ function PlayState:update(dt)
                 end
 
                 -- add to score
-                if brick.lock == false or brick.inPlay == false then
+                if brick.lock == false then
                     self.score = self.score + (brick.tier * 200 + brick.color * 25)
                 end
                 
+                if brick.lock == true and gKeytaken == true then
+                    self.score = self.score + 1000
+                end
+
                 -- if we have enough points, recover a point of health
                 if self.score > self.recoverPoints then
                     -- can't go above 3 health

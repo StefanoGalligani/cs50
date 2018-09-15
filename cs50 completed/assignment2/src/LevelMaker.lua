@@ -33,6 +33,12 @@ LevelMaker = Class{}
 function LevelMaker.createMap(level)
     local bricks = {}
     gLock = math.random(2) == 1 and true or false
+    
+    if gLock then
+        gCheckLock = true
+    else 
+        gCheckLock = false
+    end
     -- randomly choose the number of rows
     local numRows = math.random(1, 5)
 
